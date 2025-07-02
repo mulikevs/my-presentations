@@ -151,9 +151,13 @@ volumes:
 ```
 
 ```bash
-docker-compose up -d
+docker-compose build
+docker-compose up -d     #-d to run in the background
+docker-compose ps        # Check running services
+docker-compose logs      # View logs later
 docker exec -it <app2_container_id> sh
 ls /data
+docker-compose down
 ```
 
 ---
