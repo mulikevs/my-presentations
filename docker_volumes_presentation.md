@@ -83,15 +83,18 @@ echo "Hello" > /data/test.txt
 
 ```bash
 # Writer container
-docker run -it --name writer -v data-tank:/data busybox sh -c "echo Hello > /data/msg.txt; sleep 3600"
+docker run -it --name writer -v data-tank:/data busybox sh
+echo "Hello World" > /data/msg.txt
 
 # Reader container
-docker run -it --name reader -v data-tank:/data alpine cat /data/msg.txt
+docker run -it --name reader -v data-tank:/data alpine
+cat /data/msg.txt
 ```
 
 ### 🧠 Alternate: Inherit Volumes from Container
 ```bash
-docker run -it --name reader2 --volumes-from writer alpine cat /data/msg.txt
+docker run -it --name reader2 --volumes-from writer alpine
+cat /data/msg.txt
 ```
 
 ---
@@ -231,7 +234,6 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ##  Troubleshooting
 
-
 - Check permissions:
   ```bash
   docker volume inspect jenkinsvol
@@ -259,8 +261,6 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ---
 
-##  Demos & Q&A
-
 ### 🎬 Demo Suggestions:
 ```bash
 # Show volume data survives container deletion
@@ -272,5 +272,5 @@ docker run -it alpine sh -c "echo temp a> /tmp/temp.txt"
 docker run -it -v mydata:/data alpine sh -c "echo persist > /data/data.txt"
 ```
 
-### 🤝 Contact
-For more help, reach out to: **mulikevs**
+### 🤝 
+**mulikevs**
