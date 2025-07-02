@@ -50,13 +50,13 @@
 
 ```bash
 # Create a named volume
-docker volume create mydata
+docker volume create data-tank
 
 # List volumes
 docker volume ls
 
 # Inspect volume
-docker volume inspect mydata
+docker volume inspect data-tank
 ```
 
 ---
@@ -70,12 +70,12 @@ docker run -v volume_name:/container/path image
 
 ### ✅ Example
 ```bash
-docker run -it --name c1 -v mydata:/data busybox sh
+docker run -it --name testlab -v data-tank:/data busybox sh
 echo "Hello" > /data/test.txt
 ```
 
-- Volume `mydata` is mounted to `/data`.
-- Data is preserved even if `c1` is removed.
+- Volume `data-tank` is mounted to `/data`.
+- Data is preserved even if `testlab` is removed.
 
 ---
 
@@ -83,10 +83,10 @@ echo "Hello" > /data/test.txt
 
 ```bash
 # Writer container
-docker run -d --name writer -v mydata:/data busybox sh -c "echo Hello > /data/msg.txt; sleep 3600"
+docker run -it --name writer -v data-tank:/data busybox sh -c "echo Hello > /data/msg.txt; sleep 3600"
 
 # Reader container
-docker run -it --name reader -v mydata:/data alpine cat /data/msg.txt
+docker run -it --name reader -v data-tank:/data alpine cat /data/msg.txt
 ```
 
 ### 🧠 Alternate: Inherit Volumes from Container
@@ -135,14 +135,14 @@ services:
     image: busybox
     command: sleep 3600
     volumes:
-      - mydata:/data
+      - data-tank:/data
   app2:
     image: alpine
     command: sh
     tty: true
     stdin_open: true
     volumes:
-      - mydata:/data
+      - data-tank:/data
 volumes:
   mydata:
 ```
@@ -231,10 +231,6 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ##  Troubleshooting
 
-- Add user to Docker group:
-  ```bash
-  sudo usermod -aG docker $USER && newgrp docker
-  ```
 
 - Check permissions:
   ```bash
