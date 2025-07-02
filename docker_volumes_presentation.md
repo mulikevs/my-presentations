@@ -3,7 +3,7 @@
 
 ## 1. Why This Matters
 
-- Containers are **temporary**—data disappears when they stop.
+- Containers are **ephemeral**—data disappears when they stop.
 - You need **volumes** to keep your app data, logs, and configs alive.
 - This guide will show you how to:
   - Create Docker volumes
