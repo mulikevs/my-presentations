@@ -9,7 +9,7 @@
 
 ### 💾 Why Data Persistence Matters
 - By default Containers are **ephemeral** - container data is lost when it stops or is removed.
-- Important for: databases, logs, app uploads, and configurations.
+- Important for: logs, app uploads, and configurations.
 
 ### 🎯 Objective
 - Learn to persist and share data between containers.
