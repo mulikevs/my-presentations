@@ -1,7 +1,7 @@
 
 # Sharing Data & Ensuring Persistence in Docker Containers
 
-## Slide 1: Introduction to Docker and Data Persistence
+## Introduction to Docker and Data Persistence
 
 ### 🐳 What is Docker?
 - A lightweight tool for packaging apps and dependencies into containers.
@@ -17,7 +17,7 @@
 
 ---
 
-## Slide 2: Docker Volumes Overview
+## Docker Volumes Overview
 
 ### 📦 What Are Docker Volumes?
 - Managed directories stored outside the container’s writable layer.
@@ -31,7 +31,7 @@
 
 ---
 
-## Slide 3: Types of Docker Persistence
+##  Types of Docker Persistence
 
 | Method         | Description                            | Best For                      |
 |----------------|----------------------------------------|-------------------------------|
@@ -46,7 +46,7 @@
 
 ---
 
-## Slide 4: Creating Docker Volumes
+## Creating Docker Volumes
 
 ```bash
 # Create a named volume
@@ -61,7 +61,7 @@ docker volume inspect mydata
 
 ---
 
-## Slide 5: Attaching Volumes to Containers
+## Attaching Volumes to Containers
 
 ### 📌 Syntax
 ```bash
@@ -79,7 +79,7 @@ echo "Hello" > /data/test.txt
 
 ---
 
-## Slide 6: Sharing Volumes Across Containers
+## Sharing Volumes Across Containers
 
 ```bash
 # Writer container
@@ -96,7 +96,7 @@ docker run -it --name reader2 --volumes-from writer alpine cat /data/msg.txt
 
 ---
 
-## Slide 7: Using Bind Mounts
+## Using Bind Mounts
 
 ```bash
 mkdir -p ~/docker-data
@@ -109,7 +109,7 @@ docker run -it -v ~/docker-data:/data busybox sh
 
 ---
 
-## Slide 8: Temporary Data with tmpfs
+## Temporary Data with tmpfs
 
 ```bash
 docker run -it --tmpfs /tempdata alpine sh
@@ -125,7 +125,7 @@ docker run -it --tmpfs /tempdata:size=50m alpine sh
 
 ---
 
-## Slide 9: Docker Compose + Volumes
+## Docker Compose + Volumes
 
 ### 📄 docker-compose.yml
 ```yaml
@@ -155,7 +155,7 @@ ls /data
 
 ---
 
-## Slide 10: Volume Types Compared
+## Volume Types Compared
 
 | Type           | Example                          | Description                    |
 |----------------|----------------------------------|--------------------------------|
@@ -165,7 +165,7 @@ ls /data
 
 ---
 
-## Slide 11: Backup & Restore
+##  Backup & Restore
 
 ### 🔄 Backup
 ```bash
@@ -179,7 +179,7 @@ docker run --rm   -v mydata:/volume   -v $(pwd):/backup   busybox tar xzvf /back
 
 ---
 
-## Slide 12: Managing Docker Volumes
+##  Managing Docker Volumes
 
 ```bash
 docker volume ls               # List
@@ -190,7 +190,7 @@ docker volume prune           # Clean unused volumes
 
 ---
 
-## Slide 13: Volume Capacity & Limits
+## Volume Capacity & Limits
 
 - Depends on host disk or memory.
 - Check storage:
@@ -203,7 +203,7 @@ docker volume prune           # Clean unused volumes
 
 ---
 
-## Slide 14: Real Use Case - Jenkins
+##  Real Use Case - Jenkins
 
 ```bash
 docker volume create jenkinsvol
@@ -219,7 +219,7 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ---
 
-## Slide 15: Best Practices
+## Best Practices
 
 - ✅ Prefer **named volumes**.
 - ❌ Avoid **bind mounts** in production.
@@ -229,7 +229,7 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ---
 
-## Slide 16: Troubleshooting
+##  Troubleshooting
 
 - Add user to Docker group:
   ```bash
@@ -254,7 +254,7 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ---
 
-## Slide 17: Summary
+##  Summary
 
 - **Volumes** are essential for persistent data.
 - Share data across containers with `-v` or `--volumes-from`.
@@ -263,7 +263,7 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ---
 
-## Slide 18: Demos & Q&A
+##  Demos & Q&A
 
 ### 🎬 Demo Suggestions:
 ```bash
