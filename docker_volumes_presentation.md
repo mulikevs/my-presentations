@@ -147,7 +147,7 @@ services:
     volumes:
       - data-tank:/data
 volumes:
-  mydata:
+  data-tank:
 ```
 
 ```bash
