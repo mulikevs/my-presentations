@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  app1:
+    image: busybox
+    command: sleep 3600
+    volumes:
+      - data-tank:/data
+  app2:
+    image: alpine
+    command: sh
+    tty: true
+    stdin_open: true
+    volumes:
+      - data-tank:/data
+volumes:
+  data-tank:
