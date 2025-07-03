@@ -132,11 +132,13 @@ docker run -it --name alpine-tmp-50m --tmpfs /tempdata:size=50m alpine sh
 
 ### 📄 docker-compose.yml
 ```yaml
-version: "3.9"
+version: "3.7"
 services:
   app1:
     image: busybox
-    command: sleep 3600
+    command: sh
+    tty: true
+    stdin_open: true
     volumes:
       - data-tank:/data
   app2:
@@ -166,47 +168,21 @@ docker-compose down
 
 | Type           | Example                          | Description                    |
 |----------------|----------------------------------|--------------------------------|
-| Named Volume   | `-v mydata:/data`                | Portable & reusable            |
+| Named Volume   | `-v data-tank:/data`             | Portable & reusable            |
 | Anonymous Vol. | `-v /data`                       | Auto-created, container-tied   |
 | Bind Mount     | `-v /host/path:/data`            | Host-linked, less portable     |
 
 ---
 
-##  Backup & Restore
-
-### 🔄 Backup
-```bash
-docker run --rm   -v mydata:/volume   -v $(pwd):/backup   busybox tar czvf /backup/backup.tar.gz -C /volume .
-```
-
-### ♻️ Restore
-```bash
-docker run --rm   -v mydata:/volume   -v $(pwd):/backup   busybox tar xzvf /backup/backup.tar.gz -C /volume
-```
-
----
 
 ##  Managing Docker Volumes
 
 ```bash
-docker volume ls               # List
-docker volume inspect mydata  # Inspect
-docker volume rm mydata       # Remove
-docker volume prune           # Clean unused volumes
+docker volume ls                 # List
+docker volume inspect data-tank  # Inspect
+docker volume rm data-tank       # Remove
+docker volume prune              # Clean unused volumes
 ```
-
----
-
-## Volume Capacity & Limits
-
-- Depends on host disk or memory.
-- Check storage:
-  ```bash
-  df -h /var/lib/docker
-  df -i       # Inodes
-  docker system df
-  docker info --format '{{.Driver}}'
-  ```
 
 ---
 
@@ -215,7 +191,7 @@ docker volume prune           # Clean unused volumes
 ```bash
 docker volume create jenkinsvol
 
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000   -v jenkinsvol:/var/jenkins_home jenkins/jenkins:lts
+docker run --name jenkins -p 8080:8080 -p 50000:50000   -v jenkinsvol:/var/jenkins_home jenkins/jenkins:lts
 ```
 
 ```bash
@@ -223,16 +199,6 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
 - Volume stores plugins, configs, jobs, etc.
-
----
-
-## Best Practices
-
-- ✅ Prefer **named volumes**.
-- ❌ Avoid **bind mounts** in production.
-- 🔐 Use **read-only** mounts if applicable.
-- 🧼 Clean unused data: `docker volume prune`.
-- 💾 **Back up** critical data frequently.
 
 ---
 
@@ -260,7 +226,6 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 - **Volumes** are essential for persistent data.
 - Share data across containers with `-v` or `--volumes-from`.
-- Backup & restore with `tar`.
 - Use Compose to orchestrate containers with shared volumes.
 
 ---
@@ -268,12 +233,17 @@ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ### 🎬 Demo Suggestions:
 ```bash
 # Show volume data survives container deletion
-docker rm container1
-docker run -it -v mydata:/data alpine cat /data/test.txt
+docker rm alpine-persist
+docker run -it --name alpine-persist -v data-tank:/data alpine sh
+cat /data/test.txt
 
 # Temporary vs Persistent
-docker run -it alpine sh -c "echo temp a> /tmp/temp.txt"
-docker run -it -v mydata:/data alpine sh -c "echo persist > /data/data.txt"
+docker rm alpine-temp
+docker run -it --name alpine-temp alpine sh
+echo 'temp data' > /tmp/temp.txt
+docker rm alpine-temp
+docker run -it --name alpine-temp-check alpine sh
+cat /tmp/temp.txt # Inside the container, check for temporary file (will likely fail)
 ```
 
 ### 🤝 
