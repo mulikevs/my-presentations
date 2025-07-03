@@ -115,13 +115,13 @@ docker run -it --name test-sandbox -v ~/docker-data:/data busybox sh
 ## Temporary Data with tmpfs
 
 ```bash
-docker run -it --tmpfs /tempdata alpine sh
+docker run -it --name alpine-test --tmpfs /tempdata alpine sh
 ```
 
 - Creates an in-memory volume at `/tempdata`.
 
 ```bash
-docker run -it --tmpfs /tempdata:size=50m alpine sh
+docker run -it --name alpine-tmp-50m --tmpfs /tempdata:size=50m alpine sh
 ```
 
 - Limits to 50MB in RAM. Linux only.
