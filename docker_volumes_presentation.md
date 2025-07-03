@@ -151,8 +151,11 @@ services:
 volumes:
   data-tank:
 ```
-
+## 🚀 How to Launch the Application
+> Clone the repository and navigate into the project directory.
 ```bash
+git clone https://github.com/mulikevs/my-presentations.git
+cd my-presentations
 docker compose build
 docker compose up
 docker compose ps        # Check running services
@@ -246,5 +249,15 @@ docker run -it --name alpine-temp-check alpine sh
 cat /tmp/temp.txt # Inside the container, check for temporary file (will likely fail)
 ```
 
-### 🤝 
+## 📘 About This Guide
+
+This README serves as a comprehensive guide to understanding volumes in Docker Containers.
+
+
+---
+> If you find this guide helpful, please consider giving the repository a ⭐️.
+
+---
+
+### 🤝 Author
 **mulikevs**
