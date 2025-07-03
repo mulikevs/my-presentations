@@ -251,7 +251,7 @@ cat /tmp/temp.txt # Inside the container, check for temporary file (will likely 
 
 ## 📘 About This Guide
 
-This README serves as a comprehensive guide to understanding volumes in Docker Containers.
+This serves as a comprehensive guide to understanding volumes in Docker Containers.
 
 
 ---
