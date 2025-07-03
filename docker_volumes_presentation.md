@@ -104,7 +104,7 @@ cat /data/msg.txt
 ```bash
 mkdir -p ~/docker-data
 
-docker run -it -v ~/docker-data:/data busybox sh
+docker run -it --name test-sandbox -v ~/docker-data:/data busybox sh
 ```
 
 - Local folder is mapped to container.
